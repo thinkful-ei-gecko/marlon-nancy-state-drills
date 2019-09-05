@@ -1,30 +1,30 @@
 import React from 'react'
 
 class HelloWorld extends React.Component {
-    static defaultWhos = { whos : [] };
+    static defaultProps = { whos : [] };
     state = {
-        whoIndex: 0
+        who: 'World'
     };
 
-    handleClick(index){
-        this.setState({whoIndex: index})
+    handleClick = newWho => {
+        console.log(newWho)
+        this.setState({who: newWho})
     }
    
     render() {
         const buttons = this.props.whos.map((who, index) => (
-            <button key={index} onClick={this.handleClick}>
-            {this.props.whos(index)}
+            <button key={index} onClick={() => this.handleClick(who)}>
+            {who}
             </button>
           ))
-        const currentWho = this.props.whos[this.state.index]
+        const currentWho = this.state.who
         return (
             <div>
                 {buttons}
-                <p>Hello, {currentWho}</p>
+                <p>Hello,{currentWho}</p>
             </div>
         )
     }
-
 }
 
 export default HelloWorld
