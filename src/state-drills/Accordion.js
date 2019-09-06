@@ -4,35 +4,27 @@ import './Accordion.css'
 class Accordion extends React.Component{
   static defaultProp = {sections: []}
   state = {
-      currentTab: ''
+      currentDisplayIndex: null
   }
 
-  handleButtonClick = display => {
-      console.log('Button Clicked!')
-      this.props.displaying = !this.props.displaying
-  }
-
-  displayContent = e => {
-      if(this.props.displaying === true){
-      }
+  handleButtonClick = currentIndex => {
+      this.setState({currentDisplayIndex: currentIndex})
   }
 
   render(){
-    
-
-     const list = this.props.sections.map((section, index) => (
+     const listItem = this.props.sections.map((section, index) => (
          <li key={index}>
-             <button key={index} onClick = {() => this.handleButtonClick()}>{section.title}</button>
-             <p>{section.content}</p>
+             <button onClick = {() => this.handleButtonClick(index)}>{section.title}</button>
+             {this.state.currentDisplayIndex === index && <p>{section.content}</p>}
          </li>
+      )
      )
-     )
+    console.log(this.state.currentDisplayIndex) 
      return (
         <ul>
-            {list}
+            {listItem}
         </ul>
-
-      )
+     )     
     }
 }
 
